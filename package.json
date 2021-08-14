@@ -1,0 +1,23 @@
+{
+  "name": "idlesaur",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spardutti/idlesaur.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spardutti/idlesaur/issues"
+  },
+  "homepage": "https://github.com/Spardutti/idlesaur#readme",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}
