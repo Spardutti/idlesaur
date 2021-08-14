@@ -6,6 +6,10 @@ export default class Play extends Phaser.Scene {
   preload() {
     this.load.image("player", "assets/images/player.png");
     this.load.image("skely", "assets/images/skely.png");
+    this.load.spritesheet("rogue", "assets/images/rogue.png", {
+      frameWidth: 32, // image width divided by the number of elements 320px/30 = 32
+      frameHeight: 32, // image height divided by the number of elements 320px/30 = 32
+    });
   }
 
   create() {
@@ -28,6 +32,17 @@ export default class Play extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive();
     this.skely.flipX = true;
+
+    ////////////// ROGUE
+    this.rogue = this.add.sprite(100, 100, "rogue", 19); // 19 position of the spritesheet "array"
+    this.anims.create({
+      key: "walk",
+      repeat: -1, // -1 repeats for ever. //2 repeats twice, etc
+      frameRate: 5,
+      frames: this.anims.generateFrameNumbers("rogue", { start: 20, end: 29 }), // loop from image 20, to image 29. repeat
+    });
+    this.rogue.play("walk");
+
     this.timer = 0;
   }
 
