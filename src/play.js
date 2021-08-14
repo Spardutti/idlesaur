@@ -28,13 +28,17 @@ export default class Play extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive();
     this.skely.flipX = true;
-    this.player.hp = 100;
-    console.log(this.player.hp);
+    this.timer = 0;
   }
 
   update(time, delta) {
-    setTimeout(() => {
-      this.skely.angle++;
-    }, 1000);
+    this.timer += delta;
+    while (this.timer > 1000) {
+      this.skely.x += 20;
+      this.timer -= 1000;
+      setTimeout(() => {
+        this.skely.x -= 20;
+      }, 500);
+    }
   }
 }

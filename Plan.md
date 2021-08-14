@@ -3,6 +3,7 @@
 git remote update
 git status -uno
 git pull
+git reset --hard
 
 npx es-dev-server --node-resolve --watch
 
