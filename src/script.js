@@ -1,3 +1,6 @@
+import MainMenu from "../src/mainMenu.js";
+import Play from "../src/play.js";
+
 let config = {
   type: Phaser.AUTO,
   width: 800,
@@ -10,7 +13,7 @@ let config = {
       gravity: { y: 10 },
     },
   },
-  scene: [MainMenu],
+  scene: [MainMenu, Play],
 };
 
 let game = new Phaser.Game(config);

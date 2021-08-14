@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+export default class Play extends Phaser.Scene {
   constructor() {
-    super({ key: "play", active: true });
+    super({ key: "play" });
   }
 
   preload() {
@@ -28,6 +28,8 @@ class Play extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive();
     this.skely.flipX = true;
+    this.player.hp = 100;
+    console.log(this.player.hp);
   }
 
   update(time, delta) {

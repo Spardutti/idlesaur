@@ -1,4 +1,4 @@
-class MainMenu extends Phaser.Scene {
+export default class MainMenu extends Phaser.Scene {
   constructor() {
     super({ key: "mainMenu" });
   }
@@ -13,9 +13,8 @@ class MainMenu extends Phaser.Scene {
     this.playText = this.add.text(300, 200, "Play").setInteractive();
     // mostrar scena dinamicamente ??
     this.playText.on("pointerdown", function () {
-      console.log("click");
+      this.scene.scene.start("play");
     });
-    this.scene.add("Play", new Play());
   }
   update(time, delta) {}
 }
