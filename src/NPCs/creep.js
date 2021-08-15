@@ -3,7 +3,6 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
     super(config.scene, config.x, config.y, "minotaur"); // scene, coordinadas, nombre de la imagen
     config.scene.add.existing(this);
     this.setInteractive();
-    this.minotaur = this.add.sprite(500, 400, "minotaur", 0);
     this.anims.create({
       key: "minodead",
       frameRate: 5,
@@ -12,9 +11,12 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
         end: 49,
       }),
     });
+    this.on("pointerup", function () {
+      this.attack();
+    })
   }
 
   attack() {
-    console.log("minodead");
+    this.play("minodead");
   }
 }

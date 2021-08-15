@@ -1,4 +1,5 @@
 import Player from "./NPCs/player.js";
+import Minotaur from "./NPCs/creep.js"
 export default class Play extends Phaser.Scene {
   constructor() {
     super({ key: "play" });
@@ -20,6 +21,9 @@ export default class Play extends Phaser.Scene {
   create() {
     ////////// PLAYER
     let player = new Player({ scene: this, x: 400, y: 300 });
+
+    ////////// MINOTAUR
+    let minotaur = new Minotaur({ scene: this, x: 500, y: 200});
 
     /////////// SKELY
     this.skely = this.add
