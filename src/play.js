@@ -21,9 +21,6 @@ export default class Play extends Phaser.Scene {
     ////////// PLAYER
     let player = new Player({ scene: this, x: 400, y: 300 });
 
-    let spardutti;
-
-    //TODO CREAER ENEMY CLASS
     /////////// SKELY
     this.skely = this.add
       .sprite(500, 315, "skely")
@@ -49,8 +46,6 @@ export default class Play extends Phaser.Scene {
     this.skely.on("pointerup", function () {
       rogue.play("dead");
     });
-
-    this.timer = 0;
   }
 
   update(time, delta) {}
