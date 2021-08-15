@@ -21,8 +21,6 @@ export default class Play extends Phaser.Scene {
     ////////// PLAYER
     let player = new Player({ scene: this, x: 400, y: 300 });
 
-    // SOBREESCRIBIENDO
-
     /////////// SKELY
     this.skely = this.add
       .sprite(500, 315, "skely")
