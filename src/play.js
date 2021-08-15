@@ -21,7 +21,7 @@ export default class Play extends Phaser.Scene {
     ////////// PLAYER
     let player = new Player({ scene: this, x: 400, y: 300 });
 
-    let malgo;
+    let spardutti;
 
     //TODO CREAER ENEMY CLASS
     /////////// SKELY
