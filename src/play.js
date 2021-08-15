@@ -11,6 +11,10 @@ export default class Play extends Phaser.Scene {
       frameWidth: 32, // image width divided by the number of elements 320px/30 = 32
       frameHeight: 32, // image height divided by the number of elements 320px/30 = 32
     });
+    this.load.spritesheet("minotaur", "assets/images/minotaur.png", {
+      frameWidth: 48,
+      frameHeight: 48,
+    })
   }
 
   create() {
