@@ -1,3 +1,5 @@
+import Player from "./player.js";
+
 export default class Minotaur extends Phaser.GameObjects.Sprite {
   constructor(config) {
     super(config.scene, config.x, config.y, "minotaur"); // scene, coordinadas, nombre de la imagen
@@ -13,6 +15,7 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
     });
     this.on("pointerup", function () {
       this.attack();
+      Player.prototype.attack();
     })
   }
 
