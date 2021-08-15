@@ -1,3 +1,0 @@
-let autoAttack = function() {
-    
-}

@@ -1,4 +1,4 @@
-import Player from "./player/player.js";
+import Player from "./NPCs/player.js";
 export default class Play extends Phaser.Scene {
   constructor() {
     super({ key: "play" });
@@ -34,6 +34,15 @@ export default class Play extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("rogue", { start: 20, end: 29 }), // loop from image 20, to image 29. repeat
     });
     this.rogue.play("walk");
+    this.anims.create({
+      key:"dead",
+      frameRate: 5,
+      frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),   
+    });
+    let rogue = this.rogue;
+    this.skely.on("pointerup", function () {
+      rogue.play("dead");
+    });
 
     this.timer = 0;
   }
