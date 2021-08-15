@@ -1,3 +1,5 @@
+import Play from "../src/play.js";
+
 export default class MainMenu extends Phaser.Scene {
   constructor() {
     super({ key: "mainMenu" });
@@ -13,6 +15,7 @@ export default class MainMenu extends Phaser.Scene {
     this.playText = this.add.text(300, 200, "Play").setInteractive();
     // mostrar scena dinamicamente ??
     this.playText.on("pointerdown", function () {
+      this.scene.scene.add("play", Play);
       this.scene.scene.start("play");
     });
   }

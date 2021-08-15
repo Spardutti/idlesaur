@@ -13,7 +13,7 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
     });
     this.on("pointerup", function () {
       this.attack();
-    })
+    });
   }
 
   attack() {
