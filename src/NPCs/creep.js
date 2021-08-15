@@ -16,7 +16,8 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
     this.on("pointerup", function () {
       this.attack();
       Player.prototype.attack();
-    })
+      console.log(Player.prototype.scale);
+    });
   }
 
   attack() {
