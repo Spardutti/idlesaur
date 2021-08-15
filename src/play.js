@@ -14,7 +14,7 @@ export default class Play extends Phaser.Scene {
     this.load.spritesheet("minotaur", "assets/images/minotaur.png", {
       frameWidth: 48,
       frameHeight: 48,
-    })
+    });
   }
 
   create() {
@@ -41,9 +41,9 @@ export default class Play extends Phaser.Scene {
     });
     this.rogue.play("walk");
     this.anims.create({
-      key:"dead",
+      key: "dead",
       frameRate: 5,
-      frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),   
+      frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),
     });
     let rogue = this.rogue;
     this.skely.on("pointerup", function () {
