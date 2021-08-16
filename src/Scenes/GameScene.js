@@ -1,4 +1,4 @@
-import Unit from "../NPCs/Unit.js";
+import Heroes from "../NPCs/Heroes.js";
 import GameOver from "./GameOver.js";
 
 export default class GameScene extends Phaser.Scene {
@@ -12,14 +12,14 @@ export default class GameScene extends Phaser.Scene {
     scene.add("GameOver", GameOver);
 
     ////////// MINOTAUR
-    let minotaur = new Unit(this, 450, 300, "minotaur", 0, 100, 10);
+    let minotaur = new Heroes(this, 450, 300, "minotaur", 0, 100, 10);
     this.add.existing(minotaur);
     minotaur.on("pointerdown", function () {
       scene.start("GameOver");
     });
 
     ////////// PLAYER
-    let rogue = new Unit(this, 200, 300, "rogue", 0, 100, 1);
+    let rogue = new Heroes(this, 200, 300, "rogue", 0, 100, 1);
     this.add.existing(rogue);
 
     let timed = this.time.addEvent({
