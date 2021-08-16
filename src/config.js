@@ -1,4 +1,4 @@
-import MainMenu from "../src/mainMenu.js";
+import MainMenu from "./Scenes/MainMenu.js";
 
 let config = {
   type: Phaser.AUTO,
@@ -47,6 +47,21 @@ function preload() {
 }
 
 function create() {
-  this.scene.add("mainMenu", MainMenu);
-  this.scene.start("mainMenu");
+  //// ROGUE ANIMATIONS
+  this.anims.create({
+    key: "rogueWalk",
+    repeat: -1, // -1 repeats for ever. //2 repeats twice, etc
+    frameRate: 5,
+    frames: this.anims.generateFrameNumbers("rogue", { start: 20, end: 29 }), // loop from image 20, to image 29. repeat
+  });
+
+  this.anims.create({
+    key: "rogueDead",
+    frameRate: 5,
+    frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),
+  });
+
+  //// LOAD MAIN SCENE
+  this.scene.add("MainMenu", MainMenu);
+  this.scene.start("MainMenu");
 }
