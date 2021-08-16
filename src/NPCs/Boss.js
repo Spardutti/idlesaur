@@ -9,7 +9,6 @@ export default class Boss extends Phaser.GameObjects.Sprite {
   }
   attack(target) {
     target.takeDamage(this.damage);
-    target.hp -= this.damage;
   }
   takeDamage(damage) {
     this.hp -= damage;
