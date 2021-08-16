@@ -60,6 +60,11 @@ function create() {
     frameRate: 5,
     frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),
   });
+  this.anims.create({
+    key: "minoDead",
+    frameRate: 5,
+    frames: this.anims.generateFrameNumbers("minotaur", {start: 40, end: 49}),
+  });
 
   //// LOAD MAIN SCENE
   this.scene.add("MainMenu", MainMenu);
