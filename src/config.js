@@ -1,4 +1,5 @@
 import MainMenu from "./Scenes/MainMenu.js";
+import HeroesMenu from "./Scenes/HeroesMenu.js";
 
 let config = {
   type: Phaser.AUTO,
@@ -60,6 +61,9 @@ function create() {
     frameRate: 5,
     frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),
   });
+
+  //SCENES
+  this.scene.add("HeroesMenu", HeroesMenu);
 
   //// LOAD MAIN SCENE
   this.scene.add("MainMenu", MainMenu);

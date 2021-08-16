@@ -2,6 +2,7 @@ import Heroes from "../NPCs/Heroes.js";
 import Boss from "../NPCs/Boss.js";
 import Enemy from "../NPCs/Enemy.js";
 import GameOver from "./GameOver.js";
+import HeroesMenu from "./HeroesMenu.js";
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -10,22 +11,17 @@ export default class GameScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    let scene = this.scene;
-    scene.add("GameOver", GameOver);
-
-    ////////// MINOTAUR
+    //// MINOTAUR
     let minotaur = new Enemy(this, 450, 300, "minotaur", 0, 10, 10);
     this.add.existing(minotaur);
-    minotaur.on("pointerdown", function () {
-      scene.start("GameOver");
-    });
+    minotaur.on("pointerdown", function () {});
 
-    ////////// PLAYER
+    //// PLAYER
     let rogue = new Heroes(this, 200, 300, "rogue", 0, 100, 1, 1, 0, 3);
     this.add.existing(rogue);
     rogue.play("rogueWalk");
 
-    // MAKE PLAYER ATTACK
+    //// MAKE PLAYER ATTACK
     let playerAutoAttack = this.time.addEvent({
       delay: 1000 / rogue.atkSpeed,
       callback: function () {
@@ -38,6 +34,11 @@ export default class GameScene extends Phaser.Scene {
         }
       },
       loop: true,
+    });
+
+    //// OPEN MENU ON PLAYER CLICK
+    rogue.on("pointerdown", function () {
+      this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
     });
     /*
     let timed = this.time.addEvent({
