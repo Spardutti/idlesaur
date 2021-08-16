@@ -9,7 +9,5 @@ export default class Player extends Phaser.GameObjects.Sprite {
     Player.hp = 100;
     Player.prototype.pAtk = 1;
   }
-  attack() {
-    console.log("attack", this.hp, this.pAtk);
-  }
+  attack() {}
 }

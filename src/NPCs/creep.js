@@ -28,9 +28,9 @@ export default class Minotaur extends Phaser.GameObjects.Sprite {
   }
 
   ////METHODS
-  attack() {
-    this.play("minodead");
-    this.hp = this.hp - Player.prototype.pAtk;
-    console.log(Player.prototype.pAtk, this.hp);
+  attack(damage) {
+    this.hp = this.hp - damage;
+    console.log(this.hp);
+    if (this.hp <= 0) this.play("minodead");
   }
 }
