@@ -30,7 +30,7 @@ export default class GameScene extends Phaser.Scene {
     //// PLAYER
     let rogue = new Heroes(this, 200, 300, "rogue", 0, 100, 1, 1, 0, 3);
     rogue.on("pointerdown", function () {
-      this.scene.launch("HeroesMenu");
+      this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
     });
     this.add.existing(rogue);
     rogue.play("rogueWalk");
