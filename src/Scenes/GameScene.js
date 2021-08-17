@@ -12,20 +12,47 @@ export default class GameScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    let scene = this.scene;
-    scene.add("GameOver", GameOver);
+    let scene = this;
+    this.scene.add("GameOver", GameOver);
 
     //// EXPERIENCE ITEM
     let experience = new Experience(0);
-    console.log(experience.quantity);
 
-    ////////// MINOTAUR
-    let minotaur = new Enemy(this, 450, 300, "minotaur", 0, 10, 10, 10, 10);
-    this.add.existing(minotaur);
-    console.log(minotaur.exp);
-    minotaur.on("pointerdown", function () {
-      scene.start("GameOver");
-    });
+    //// CREATE NPCS ENEMIES
+    const createNpc = function (
+      scene,
+      x,
+      y,
+      texture,
+      frame,
+      hp,
+      damage,
+      level,
+      exp
+    ) {
+      return new Enemy(scene, x, y, texture, frame, hp, damage, level, exp);
+    };
+
+    let enemies = [];
+    let textures = ["minotaur", "skely"];
+
+    // CREATE 3 RANDOM NPCS
+    for (let i = 0; i < 3; i++) {
+      let chooseTexture = Math.floor(Math.random() * textures.length);
+      let npc = createNpc(
+        scene,
+        (i + 3) * 100,
+        300,
+        textures[chooseTexture],
+        0,
+        10,
+        1,
+        1,
+        1
+      );
+      enemies.push(npc);
+      this.add.existing(npc);
+    }
 
     //// PLAYER
     let rogue = new Heroes(this, 200, 300, "rogue", 0, 100, 1, 1, 0, 3);
@@ -36,49 +63,52 @@ export default class GameScene extends Phaser.Scene {
     rogue.play("rogueWalk");
 
     //// MAKE PLAYER ATTACK
-    let playerAutoAttack = this.time.addEvent({
-      delay: 1000 / rogue.atkSpeed,
-      callback: function () {
-        if (minotaur.hp > 0) {
-          rogue.attack(minotaur);
-        } else {
-          experience.quantity += minotaur.exp;
-          console.log(experience.quantity);
-          minotaur.play("minoDead");
-          playerAutoAttack.paused = true;
-          setTimeout(() => {
-            console.log("hola");
-            minotaur.destroy();
-            playerAutoAttack.pause = false;
-            console.log(minotaur.hp);
-          }, 2000);
-        }
-      },
-      loop: true,
-    });
+    function playerATtack(target = undefined) {
+      if (!enemies.length) return;
+      if (target === undefined) {
+        target = Math.floor(Math.random() * enemies.length);
+      }
+      let selectedTarget = enemies[target];
+      if (selectedTarget.hp > 0) {
+        rogue.attack(selectedTarget);
+        setTimeout(() => {
+          playerATtack(target);
+        }, 1000 / rogue.atkSpeed);
+      } else {
+        // NEED TO ADD NEW ANIMATIOSN FOR SKELY
+        selectedTarget.play("minoDead");
+        selectedTarget.on(
+          Phaser.Animations.Events.ANIMATION_COMPLETE,
+          function () {
+            selectedTarget.destroy();
+            enemies.splice(target, 1);
+            playerATtack(undefined);
+            setTimeout(() => {
+              let rnd = Math.floor(Math.random() * textures.length);
+              let newNpc = createNpc(
+                scene,
+                selectedTarget.x,
+                300,
+                textures[rnd],
+                0,
+                10,
+                10,
+                10,
+                10
+              );
+              scene.add.existing(newNpc);
+              enemies.push(newNpc);
+            }, 500);
+          }
+        );
+      }
+    }
+    playerATtack();
 
     //// OPEN MENU ON PLAYER CLICK
     rogue.on("pointerdown", function () {
       this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
     });
-    /*
-    let timed = this.time.addEvent({
-      delay: 1000,
-      callback: function () {
-        if (rogue.hp > 0) {
-          minotaur.attack(rogue);
-        } else {
-          rogue.play("rogueDead");
-          setInterval(() => {
-            scene.start("GameOver");
-          }, 2000);
-          timed.destroy();
-        }
-      },
-      loop: true,
-    });
-  }
-*/
   }
   update(time, delta) {}
 }
