@@ -1,8 +1,13 @@
+////NPC'S IMPORTS
 import Heroes from "../NPCs/Heroes.js";
 import Boss from "../NPCs/Boss.js";
 import Enemy from "../NPCs/Enemy.js";
+import MainPlayer from "../NPCs/MainPlayer.js"
+////SCENES IMPORTS
 import GameOver from "./GameOver.js";
+////ITEMS IMPORTS
 import Experience from "../Items/Experience.js"
+import Gold from "../Items/Gold.js"
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -19,7 +24,7 @@ export default class GameScene extends Phaser.Scene {
     console.log(experience.quantity)
 
     ////////// MINOTAUR
-    let minotaur = new Enemy(this, 450, 300, "minotaur", 0, 10, 10, 10, 10);
+    let minotaur = new Enemy(this, 450, 300, "minotaur", 0, 10, 10, 10, 10, 5);
     this.add.existing(minotaur);
     console.log(minotaur.exp)
     minotaur.on("pointerdown", function () {
