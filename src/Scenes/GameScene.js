@@ -65,24 +65,30 @@ export default class GameScene extends Phaser.Scene {
     //// MAKE PLAYER ATTACK
     function playerATtack(target = undefined) {
       if (!enemies.length) return;
+      // GETS A NEW TARGET
       if (target === undefined) {
         target = Math.floor(Math.random() * enemies.length);
       }
       let selectedTarget = enemies[target];
+      // CHECK IF TARGET IS ALIVE
       if (selectedTarget.hp > 0) {
         rogue.attack(selectedTarget);
+        // EXECUTES A NEW ATTACK ON SAME TARGET
         setTimeout(() => {
           playerATtack(target);
         }, 1000 / rogue.atkSpeed);
       } else {
         // NEED TO ADD NEW ANIMATIOSN FOR SKELY
         selectedTarget.play("minoDead");
+        // WAITS FOR DEAD ANIMATION
         selectedTarget.on(
           Phaser.Animations.Events.ANIMATION_COMPLETE,
           function () {
             selectedTarget.destroy();
             enemies.splice(target, 1);
+            // EXECUTES A NEW ATTACK ON NEW TARGET
             playerATtack(undefined);
+            // MINI TIME OUT TO LET THE ENEMY DISSAPEAR BEFORE ADDING A NEW ONE
             setTimeout(() => {
               let rnd = Math.floor(Math.random() * textures.length);
               let newNpc = createNpc(
