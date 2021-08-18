@@ -110,7 +110,7 @@ export default class GameScene extends Phaser.Scene {
       }
     }
     playerATtack();
-
+    //
     //// OPEN MENU ON PLAYER CLICK
     rogue.on("pointerdown", function () {
       this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
