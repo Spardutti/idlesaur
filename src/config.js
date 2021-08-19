@@ -1,6 +1,7 @@
 import MainMenu from "./Scenes/MainMenu.js";
 import HeroesMenu from "./Scenes/HeroesMenu.js";
 
+
 let config = {
   type: Phaser.AUTO,
   width: 800,
@@ -64,7 +65,7 @@ function create() {
   this.anims.create({
     key: "minoDead",
     frameRate: 5,
-    frames: this.anims.generateFrameNumbers("minotaur", {start: 40, end: 49}),
+    frames: this.anims.generateFrameNumbers("minotaur", { start: 40, end: 49 }),
   });
 
   //SCENES
