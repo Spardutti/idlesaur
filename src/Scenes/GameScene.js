@@ -52,6 +52,7 @@ export default class GameScene extends Phaser.Scene {
       );
       enemies.push(npc);
       this.add.existing(npc);
+      //
     }
 
     //// PLAYER
