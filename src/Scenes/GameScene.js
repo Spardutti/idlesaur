@@ -1,9 +1,14 @@
+////NPC'S IMPORTS
 import Heroes from "../NPCs/Heroes.js";
 import Boss from "../NPCs/Boss.js";
 import Enemy from "../NPCs/Enemy.js";
+import MainPlayer from "../NPCs/MainPlayer.js";
+////SCENES IMPORTS
 import GameOver from "./GameOver.js";
-import Experience from "../Items/Experience.js";
 import HeroesMenu from "./HeroesMenu.js";
+//// ITEMS IMPORTS
+import Experience from "../Items/Experience.js";
+import Gold from "../Items/Gold.js";
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -18,41 +23,13 @@ export default class GameScene extends Phaser.Scene {
     //// EXPERIENCE ITEM
     let experience = new Experience(0);
 
-    //// CREATE NPCS ENEMIES
-    const createNpc = function (
-      scene,
-      x,
-      y,
-      texture,
-      frame,
-      hp,
-      damage,
-      level,
-      exp
-    ) {
-      return new Enemy(scene, x, y, texture, frame, hp, damage, level, exp);
-    };
-
-    let enemies = [];
-    let textures = ["minotaur", "skely"];
-
-    // CREATE 3 RANDOM NPCS
-    for (let i = 0; i < 3; i++) {
-      let chooseTexture = Math.floor(Math.random() * textures.length);
-      let npc = createNpc(
-        scene,
-        (i + 3) * 100,
-        300,
-        textures[chooseTexture],
-        0,
-        10,
-        1,
-        1,
-        1
-      );
-      enemies.push(npc);
-      this.add.existing(npc);
-    }
+    ////////// MINOTAUR
+    let minotaur = new Enemy(this, 450, 300, "minotaur", 0, 10, 10, 10, 10, 5);
+    this.add.existing(minotaur);
+    console.log(minotaur.exp);
+    minotaur.on("pointerdown", function () {
+      scene.start("GameOver");
+    });
 
     //// PLAYER
     let rogue = new Heroes(this, 200, 300, "rogue", 0, 100, 1, 1, 0, 3);
