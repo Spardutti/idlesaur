@@ -9,6 +9,8 @@ import HeroesMenu from "./HeroesMenu.js";
 //// ITEMS IMPORTS
 import Experience from "../Items/Experience.js";
 import Gold from "../Items/Gold.js";
+//// BUTTONS IMPORTS
+import GrindButton from "../Buttons/GrindButton.js"
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -20,8 +22,19 @@ export default class GameScene extends Phaser.Scene {
     let scene = this;
     this.scene.add("GameOver", GameOver);
 
-    //// EXPERIENCE ITEM
-    let experience = new Experience(0);
+    //// GRIND ITEMS
+    let exp = new Experience(0);
+    let gold = new Gold(0);
+    console.log(exp.quantity, gold.quantity)
+    ////BAG ITEMS
+    let bag = {
+      exp: 0,
+      gold: 0,
+    }
+
+    ////GRIND BUTTON
+    this.grind = new GrindButton(this, 350, 500, "Grind Me!");
+    this.add.existing(this.grind)
 
     //// CREATE NPCS ENEMIES
     const createNpc = function (
@@ -33,9 +46,10 @@ export default class GameScene extends Phaser.Scene {
       hp,
       damage,
       level,
-      exp
+      exp,
+      gold
     ) {
-      return new Enemy(scene, x, y, texture, frame, hp, damage, level, exp);
+      return new Enemy(scene, x, y, texture, frame, hp, damage, level, exp, gold);
     };
 
     let enemies = [];
@@ -51,6 +65,7 @@ export default class GameScene extends Phaser.Scene {
         textures[chooseTexture],
         0,
         10,
+        1,
         1,
         1,
         1
@@ -86,6 +101,9 @@ export default class GameScene extends Phaser.Scene {
       } else {
         // NEED TO ADD NEW ANIMATIOSN FOR SKELY
         selectedTarget.play("minoDead");
+        gold.quantity += selectedTarget.gold;
+        exp.quantity += selectedTarget.exp;
+        console.log(exp.quantity, gold.quantity, bag.gold, bag.exp)
         // WAITS FOR DEAD ANIMATION
         selectedTarget.on(
           Phaser.Animations.Events.ANIMATION_COMPLETE,
@@ -104,9 +122,10 @@ export default class GameScene extends Phaser.Scene {
                 textures[rnd],
                 0,
                 10,
-                10,
-                10,
-                10
+                1,
+                1,
+                1,
+                1
               );
               scene.add.existing(newNpc);
               enemies.push(newNpc);
@@ -121,6 +140,14 @@ export default class GameScene extends Phaser.Scene {
     rogue.on("pointerdown", function () {
       this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
     });
+    this.grind.on("pointerup", function() {
+      bag.exp += exp.quantity;
+      exp.quantity = 0;
+      bag.gold += gold.quantity;
+      gold.quantity = 0;
+    })
   }
   update(time, delta) {}
 }
+
+
