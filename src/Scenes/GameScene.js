@@ -10,7 +10,7 @@ import HeroesMenu from "./HeroesMenu.js";
 import Experience from "../Items/Experience.js";
 import Gold from "../Items/Gold.js";
 //// BUTTONS IMPORTS
-import GrindButton from "../Buttons/GrindButton.js"
+import Button from "../Buttons/Button.js";
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -25,16 +25,21 @@ export default class GameScene extends Phaser.Scene {
     //// GRIND ITEMS
     let exp = new Experience(0);
     let gold = new Gold(0);
-    console.log(exp.quantity, gold.quantity)
+    console.log(exp.quantity, gold.quantity);
     ////BAG ITEMS
     let bag = {
       exp: 0,
       gold: 0,
-    }
+    };
 
     ////GRIND BUTTON
-    this.grind = new GrindButton(this, 350, 500, "Grind Me!");
-    this.add.existing(this.grind)
+    this.grind = new Button(this, 350, 500, "Grind Me!", null);
+    this.add.existing(this.grind);
+    ////LVL UP BUTTON
+    this.lvlUp = new Button(this, 100, 250, "+", null);
+    this.add.existing(this.lvlUp);
+    ////"NOT ENOUGH EXP" TEXT
+    this.notEnoughText = new Button(this, 300, 200, "Not Enough Experience!", { fill: "#ff0000"});
 
     //// CREATE NPCS ENEMIES
     const createNpc = function (
@@ -49,7 +54,18 @@ export default class GameScene extends Phaser.Scene {
       exp,
       gold
     ) {
-      return new Enemy(scene, x, y, texture, frame, hp, damage, level, exp, gold);
+      return new Enemy(
+        scene,
+        x,
+        y,
+        texture,
+        frame,
+        hp,
+        damage,
+        level,
+        exp,
+        gold
+      );
     };
 
     let enemies = [];
@@ -103,7 +119,7 @@ export default class GameScene extends Phaser.Scene {
         selectedTarget.play("minoDead");
         gold.quantity += selectedTarget.gold;
         exp.quantity += selectedTarget.exp;
-        console.log(exp.quantity, gold.quantity, bag.gold, bag.exp)
+        console.log(exp.quantity, gold.quantity, bag.gold, bag.exp);
         // WAITS FOR DEAD ANIMATION
         selectedTarget.on(
           Phaser.Animations.Events.ANIMATION_COMPLETE,
@@ -140,14 +156,29 @@ export default class GameScene extends Phaser.Scene {
     rogue.on("pointerdown", function () {
       this.scene.scene.launch("HeroesMenu", { hp: rogue.hp });
     });
-    this.grind.on("pointerup", function() {
+    ////TRANSFER THE AFK REWARDS TO THE PLAYERS BAG
+    this.grind.on("pointerup", function () {
       bag.exp += exp.quantity;
       exp.quantity = 0;
       bag.gold += gold.quantity;
       gold.quantity = 0;
-    })
+    });
+    ////IF ENOUGH EXP LVL UP THE PLAYER, OTHERWISE SEND MSG
+    this.lvlUp.on("pointerup", function () {
+      if (bag.exp >= 15) {
+        rogue.level += 1;
+        rogue.damage += 1;
+        rogue.hp += 10;
+        bag.exp -= 15;
+        console.log(rogue.level, rogue.damage, rogue.hp, bag.exp)
+      } else {
+        scene.add.existing(scene.notEnoughText);
+        scene.notEnoughText.setVisible(true);
+        setTimeout(() => {
+          scene.notEnoughText.setVisible(false);
+        }, 2000);
+      }
+    });
   }
   update(time, delta) {}
 }
-
-
