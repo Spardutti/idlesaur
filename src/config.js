@@ -32,8 +32,12 @@ function preload() {
     frameHeight: 48,
   });
   this.load.spritesheet("rogue", "assets/images/rogue.png", {
-    frameWidth: 32, // image width divided by the number of elements 320px/30 = 32
-    frameHeight: 32, // image height divided by the number of elements 320px/30 = 32
+    frameWidth: 32,
+    frameHeight: 32, 
+  });
+  this.load.spritesheet("dino", "assets/images/dinodead.bmp", {
+    frameWidth: 32, 
+    frameHeight: 32, 
   });
 
   this.load.on("progress", function (value) {
@@ -62,10 +66,19 @@ function create() {
     frameRate: 5,
     frames: this.anims.generateFrameNumbers("rogue", { start: 40, end: 49 }),
   });
+  
+  //// MINO ANIMATIONS
   this.anims.create({
     key: "minoDead",
     frameRate: 5,
     frames: this.anims.generateFrameNumbers("minotaur", { start: 40, end: 49 }),
+  });
+
+  //// DINO ANIMATIONS
+  this.anims.create({
+    key: "dinoDead",
+    frameRate: 5,
+    frames: this.anims.generateFrameNumbers("dino", { start: 8, end: 17 }),
   });
 
   //SCENES

@@ -69,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
     };
 
     let enemies = [];
-    let textures = ["minotaur", "skely"];
+    let textures = ["minotaur", "dino"];
 
     // CREATE 3 RANDOM NPCS
     for (let i = 0; i < 3; i++) {
@@ -115,8 +115,13 @@ export default class GameScene extends Phaser.Scene {
           playerATtack(target);
         }, 1000 / rogue.atkSpeed);
       } else {
+        console.log(selectedTarget.texture.key)
         // NEED TO ADD NEW ANIMATIOSN FOR SKELY
-        selectedTarget.play("minoDead");
+        if(selectedTarget.texture.key === "minotaur") {
+          selectedTarget.play("minoDead");
+        }else if (selectedTarget.texture.key === "dino") {
+          selectedTarget.play("dinoDead");
+        }
         gold.quantity += selectedTarget.gold;
         exp.quantity += selectedTarget.exp;
         console.log(exp.quantity, gold.quantity, bag.gold, bag.exp);
